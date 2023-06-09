@@ -1,0 +1,44 @@
+﻿@model ClaimView
+
+@using TXTextControl.Web.MVC.DocumentViewer
+
+<div style="width: 100%; height: 600px;">
+
+	@Html.TXTextControl().DocumentViewer(settings => {
+		settings.DocumentData = Convert.ToBase64String(Model.Document);
+		settings.Dock = DocumentViewerSettings.DockStyle.Fill;
+		settings.SignatureSettings = new SignatureSettings() {
+			OwnerName = "Happy Insurance",
+			SignerName = Model.Claim.name,
+			SignatureBoxes = new SignatureBox[] {
+				new SignatureBox("txsign") {
+					SigningRequired = true,
+					Style = SignatureBox.SignatureBoxStyle.Signature }},
+			ShowSignatureBar = true,
+			RedirectUrlAfterSignature = this.Url.Action(
+				"ExportPDF",
+				"Home",
+				null,
+				Context.Request.Scheme, Context.Request.Host.ToString())
+		};
+	}).Render()
+
+</div>
+
+<script>
+	window.addEventListener("documentViewerLoaded", function () {
+		TXDocumentViewer.signatures.setSubmitCallback(exportPDF);
+	});
+	function exportPDF(data) {
+		// create temporary link to download document
+		var element = document.createElement('a');
+		element.setAttribute('href', 'data:application/octet-stream;base64,' + data);
+		element.setAttribute('download', "result.pdf");
+		element.style.display = 'none';
+		document.body.appendChild(element);
+		// simulate click
+		element.click();
+		// remove the link
+		document.body.removeChild(element);
+	}
+</script>
