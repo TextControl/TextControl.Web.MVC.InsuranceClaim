@@ -8,9 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.16" />
-    <PackageReference Include="TXTextControl.TextControl.ASP.SDK" Version="31.0.2" />
-    <PackageReference Include="TXTextControl.Web" Version="31.2.0" />
-    <PackageReference Include="TXTextControl.Web.DocumentViewer" Version="31.2.3" />
+    <PackageReference Include="TXTextControl.TextControl.ASP.SDK" Version="32.0.1" />
+    <PackageReference Include="TXTextControl.Web.DocumentViewer" Version="32.1.0" />
   </ItemGroup>
 
   <ItemGroup>
